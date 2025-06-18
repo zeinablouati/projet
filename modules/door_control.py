@@ -1,4 +1,3 @@
-# modules/door_control.py
 import serial
 from config import serial_port, baud_rate
 
