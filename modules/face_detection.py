@@ -1,5 +1,5 @@
 import cv2
-<<<<<<< HEAD
+import os
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
@@ -7,8 +7,6 @@ def detect_faces(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
     return faces
-=======
-import os
 
 def capture_faces(person_name, output_dir="../dataset", num_images=10):
     # Créer le dossier pour la personne
@@ -68,4 +66,3 @@ def capture_faces(person_name, output_dir="../dataset", num_images=10):
 if __name__ == "__main__":
     name = input("Nom de la personne à enregistrer : ").strip()
     capture_faces(person_name=name)
->>>>>>> 8e24f5e7237c6f2b52bef32669bedf44e16f179e

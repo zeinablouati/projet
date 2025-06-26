@@ -1,7 +1,8 @@
-<<<<<<< HEAD
 from deepface import DeepFace
 import os
 from config import database_path, model_name, threshold_score
+import cv2
+import time
 
 def recognize_face(face_img):
     try:
@@ -25,11 +26,7 @@ def recognize_face(face_img):
     except Exception as e:
         print(f"Erreur de reconnaissance : {e}")
     return "Inconnu", 0
-=======
-import cv2
-import os
-import time
-from deepface import DeepFace
+
 #from serial import Serial
 
 #esp32 = Serial("COM6", 9600)
@@ -144,4 +141,3 @@ def recognize_faces_realtime(database_path="../dataset", model_name="VGG-Face", 
 
 if __name__ == "__main__":
     recognize_faces_realtime()
->>>>>>> 8e24f5e7237c6f2b52bef32669bedf44e16f179e
