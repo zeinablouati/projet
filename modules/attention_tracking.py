@@ -5,15 +5,23 @@ from datetime import datetime
 from collections import deque
 from data_logger import recognize_name, DataLogger
 
-# === 1) Configuration du logger ===
+#1) Configuration du logger ===
 logger = DataLogger(
     filename="concentration_report.csv",
     fieldnames=["tracker", "status", "std_x", "std_y"]
 )
 summary_logger = DataLogger(
     filename="summary_report.csv",
-    fieldnames=["period_start", "period_end", "num_distrait", "avg_std_x", "avg_std_y"]
+    fieldnames=[
+        "Etudiant",
+        "period_start",
+        "period_end",
+        "num_distrait",
+        "num_concentre",
+        "pct_concentre"
+    ]
 )
+
 
 
 def create_kcf_tracker():
@@ -227,14 +235,19 @@ def main():
             avg_y = sum_stdy / event_count
 
 
-            # Écrire la ligne de résumé
+                # calcul des nouvelles métriques
+            num_concentre = event_count - distrait_count
+            pct_concentre = (num_concentre / event_count) * 100
+
             summary_logger.log(
-                period_start = datetime.fromtimestamp(period_start).strftime("%Y-%m-%d %H:%M:%S"),
-                period_end   = datetime.fromtimestamp(period_end).strftime("%Y-%m-%d %H:%M:%S"),
-                num_distrait = distrait_count,
-                avg_std_x    = f"{avg_x:.2f}",
-                avg_std_y    = f"{avg_y:.2f}"
-            )
+                    Etudiant=  e["name"],
+                    period_start   = datetime.fromtimestamp(period_start).strftime("%Y-%m-%d %H:%M:%S"),
+                    period_end     = datetime.fromtimestamp(period_end).strftime("%Y-%m-%d %H:%M:%S"),
+                    num_distrait   = distrait_count,
+                    num_concentre  = num_concentre,
+                    pct_concentre  = f"{pct_concentre:.1f}"
+                )
+
 
             # Remise à zéro pour la prochaine période
             period_start   = now
