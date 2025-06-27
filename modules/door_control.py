@@ -1,7 +1,7 @@
 import serial
 from config import serial_port, baud_rate
 
-esp32 = serial.Serial(serial_port, baud_rate)
+# esp32 = serial.Serial(serial_port, baud_rate)
 
 def send_move_command():
     esp32.write(b"MOVE\n")
